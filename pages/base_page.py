@@ -4,7 +4,7 @@ class BasePage(object):
         """Конструктор класса.
         :param browser:
         :param url:
-        """
+        """ 
         self.browser = browser
         self.url = url
 

@@ -1,11 +1,15 @@
-from selenium import webdriver
+class BasePage(object):
 
-
-class BasePage():
     def __init__(self, browser, url):
+        """Конструктор класса.
+        :param browser:
+        :param url:
+        """
         self.browser = browser
         self.url = url
 
     def open(self):
-        self.browser = webdriver.Chrome('./chromedriver.exe')
+        """метод открывает нужную страницу,
+        используя метод get()
+        """
         self.browser.get(self.url)

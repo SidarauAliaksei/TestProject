@@ -1,32 +1,26 @@
-from .pages.login_page import LoginPage
-from .pages.main_page import MainPage
+import pytest
+
+from pages.basket_page import BasketPage
+from pages.login_page import LoginPage
+from pages.main_page import MainPage
+
+main_page_link = "http://selenium1py.pythonanywhere.com"
 
 
-def test_guest_can_go_to_login_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/"
-    page = MainPage(browser, link)
-    page.open()
-    page.go_to_login_page()
-    login_page = LoginPage(browser, browser.current_url)
-    login_page.should_be_login_page()
+@pytest.mark.login_guest
+class TestLoginFromMainPage:
+    def test_guest_can_go_to_login_page(self, browser) -> None:
+        main_page = MainPage(browser, main_page_link)
+        main_page.open()
+        main_page.go_to_login_page()
+        main_page.should_be_login_link()
+        login_page = LoginPage(browser, browser.current_url)
+        login_page.should_be_login_page()
 
-
-def test_guest_should_see_login_link(browser):
-    link = "http://selenium1py.pythonanywhere.com/"
-    page = LoginPage(browser, link)
-    page.open()
-    page.should_be_login_url()
-
-
-def test_guest_should_see_login_field(browser):
-    link = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
-    page2 = LoginPage(browser, link)
-    page2.open()
-    page2.should_be_login_form()
-
-
-def test_guest_should_see_register_field(browser):
-    link = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
-    page = LoginPage(browser, link)
-    page.open()
-    page.should_be_register_form()
+    def test_guest_should_see_login_link(self, browser) -> None:
+        main_page = MainPage(browser, main_page_link)
+        main_page.open()
+        main_page.go_to_cart_page()
+        cart_page = BasketPage(browser, browser.current_url)
+        cart_page.should_be_empty()
+        cart_page.should_contain_empty_text()

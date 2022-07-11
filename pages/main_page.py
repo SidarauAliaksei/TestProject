@@ -1,10 +1,11 @@
-from .locators import LoginPageLocators
-from .locators import BasePageLocators
+from selenium.webdriver import Remote
+
 from .base_page import BasePage
 
 
-
 class MainPage(BasePage):
-    def go_to_login_page(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+    """Represents the main page
+    """
 
+    def __init__(self, browser: Remote, url: str) -> None:
+        super().__init__(browser, url)
